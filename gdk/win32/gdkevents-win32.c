@@ -1747,8 +1747,7 @@ ensure_stacking_on_activate_app (MSG       *msg,
       while (owner != NULL)
         {
           SetWindowPos (GDK_SURFACE_HWND (owner), GDK_SURFACE_HWND (child), 0, 0, 0, 0,
-                        SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_NOOWNERZORDER);
-          restack_children (owner);
+                        SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
           child = owner;
           owner = GDK_WIN32_SURFACE (owner)->transient_owner;
         }
@@ -3317,7 +3316,6 @@ gdk_event_translate (MSG *msg,
       if (msg->wParam && GDK_SURFACE_IS_MAPPED (window))
 	{
 	  ensure_stacking_on_activate_app (msg, window);
-	  restack_children (window);
 	}
       break;
     case WM_NCHITTEST:
